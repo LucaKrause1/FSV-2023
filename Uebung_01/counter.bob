@@ -1,6 +1,17 @@
 obj COUNTER is
   sorts Counter .
+  protecting NAT .
   op reset : -> Counter .
   op inc : Counter -> Counter .
   op dec : Counter -> Counter .
+***> Alternativ Operation op zahl : Counter -> Nat und andersherum
+  var X : Counter .
+  var Y : Nat .
+  eq inc(dec(X)) = X .
+  eq dec(inc(X)) = X .
 endo
+  
+  reduce reset .
+  reduce dec(inc(reset)) == reset .
+  reduce dec(dec(inc(reset))) == dec(reset) .
+  reduce inc(dec(reset)) == reset .

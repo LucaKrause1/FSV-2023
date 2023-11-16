@@ -1,0 +1,31 @@
+obj COUNTER is
+  sorts Counter .
+  protecting NAT .
+  op reset : -> Counter .
+  op inc : Counter -> Counter .
+  op dec : Counter -> Counter .
+  op value : Counter -> Nat .
+  op cont : Nat -> Counter .
+
+  var X : Counter .
+  var P : Nat .
+  eq reset = value(0) .
+  eq value(X) < P = true => value(inc(X)) = value(X) + 1 .
+  eq inc(cont(P)) = cont(0) .
+  eq value(X) > 0 = true => value(dec(X)) = value(X) - 1 .
+  eq dec(cont(0)) = cont(p)  
+
+
+  ***> eq value(inc(X)) = value(X) + 1 .
+  ***> eq inc(P) = 0 .
+  ***> eq dec(X) = X - 1 .
+  ***> eq dec(0) = P .
+
+  eq inc(dec(X)) = X .
+  eq dec(inc(X)) = X .
+endo
+  
+  reduce reset .
+  reduce dec(inc(reset)) == reset .
+  reduce dec(dec(inc(reset))) == dec(reset) .
+  reduce inc(dec(reset)) == reset .
