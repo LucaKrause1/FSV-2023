@@ -5,7 +5,7 @@
 ***> obj STACK[E:: DATA] is
 obj STACK-OF-NAT is
   sorts Stack Stack? Nat? .
-  subsort Stack < Stack?
+  subsort Stack < Stack? .
   protecting NAT .
   subsort Nat < Nat? .
 
@@ -28,14 +28,34 @@ obj STACK-OF-NAT is
   ***> eq length(push(X,S)) = 1 + length(S) .
 endo
 
+***> Aufgabe 3. b)
+***> reduce top(push(3, pop(pop(push(2, empty))))) .
+***> = Nat?: top r:Stack?>Stack(push(3, underflow)) 
 
-var Y : Element .
-var S2 : Stack .
+***> reduce top(push(3,empty)) .
+***> = NzNat: 3
 
-reduce pop(push(X,S)) == S .
-reduce top(pop(push(X,push(Y,S)))) == Y .
-reduce S == push(X,S2)
-            implies push(top(S),pop(S)) == S .
-reduce S == push(X,S2)
-            implies length(pop(S)) + 1 == length(S) .
+
+***> Aufgabe 3. c)
+***> reduce push(6,push(44,empty)) .
+***> = Stack: push(6, push(44, empty))
+
+***> reduce push(6,push(top(empty),empty)) .
+***> = Stack: push(6, push(r:Nat?>Nat(topless), empty))
+
+***> reduce pop(empty) .
+***> = Stack?: underflow
+
+
+
+
+***> var Y : Element .
+***> var S2 : Stack .
+
+***> reduce pop(push(X,S)) == S .
+***> reduce top(pop(push(X,push(Y,S)))) == Y .
+***> reduce S == push(X,S2)
+***>             implies push(top(S),pop(S)) == S .
+***> reduce S == push(X,S2)
+***>             implies length(pop(S)) + 1 == length(S) .
 

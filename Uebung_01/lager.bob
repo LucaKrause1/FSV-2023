@@ -1,0 +1,14 @@
+***> TODO: Keine Ahnung, wie ich nun korrekt Sorten definiere.
+
+obj lager is
+    sorts ladungstraeger .
+    sorts fach .
+
+    op leeresLager : 
+    op einlagern : 
+    op auslagern : 
+
+    var k : ladungstraeger .
+    var x :  .
+    eq auslagern(einlagern(x,k),k) = x .
+endo
