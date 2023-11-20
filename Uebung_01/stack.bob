@@ -1,0 +1,41 @@
+***> obj DATA is
+***>   sorts Element .
+***> endo
+
+***> obj STACK[E:: DATA] is
+obj STACK-OF-NAT is
+  sorts Stack Stack? Nat? .
+  subsort Stack < Stack?
+  protecting NAT .
+  subsort Nat < Nat? .
+
+  op empty : -> Stack .
+  op push : Nat Stack -> Stack .
+  op push : Nat Stack? -> Stack? .
+  op top_ : Stack -> Nat? .
+  op pop_ : Stack -> Stack? .
+  op topless : -> Nat? .
+  op underflow : -> Stack? .
+  ***> op length : Stack -> Nat .
+
+  var X : Nat .
+  var S : Stack .
+  eq top(push(X,S)) = X .
+  eq pop(push(X,S)) = S .
+  eq top empty = topless .
+  eq pop empty = underflow .
+  ***> eq length(empty) = 0 .
+  ***> eq length(push(X,S)) = 1 + length(S) .
+endo
+
+
+var Y : Element .
+var S2 : Stack .
+
+reduce pop(push(X,S)) == S .
+reduce top(pop(push(X,push(Y,S)))) == Y .
+reduce S == push(X,S2)
+            implies push(top(S),pop(S)) == S .
+reduce S == push(X,S2)
+            implies length(pop(S)) + 1 == length(S) .
+
